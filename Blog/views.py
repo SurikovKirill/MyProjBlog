@@ -4,10 +4,11 @@ from .models import Post, Comment
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
 from .forms import EmailPostForm, CommentForm
+from taggit.models import Tag
 
 
 # Create your views here.
-def post_list(request):
+def post_list(request, tag_slug=None):
     object_list = Post.published.all()
     paginator = Paginator(object_list, 3)
     page = request.GET.get('page')
@@ -33,7 +34,8 @@ def post_detail(request, year, month, day, post):
             new_comment.save()
     else:
         comment_form = CommentForm()
-    return render(request, 'blog/post/detail.html', {'post': post, 'comments': comments, 'new_comment': new_comment, 'comment_form': comment_form})
+    return render(request, 'blog/post/detail.html',
+                  {'post': post, 'comments': comments, 'new_comment': new_comment, 'comment_form': comment_form})
 
 
 def post_share(request, post_id):

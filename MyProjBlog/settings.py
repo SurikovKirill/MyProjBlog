@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Blog.apps.BlogConfig',
+    'taggit',
 ]
 
 MIDDLEWARE = [
@@ -56,6 +57,11 @@ EMAIL_HOST_USER = 'kirill.surikov.skv@gmail.com'
 EMAIL_HOST_PASSWORD = 'Klounada1'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+
+
+
+
 
 TEMPLATES = [
     {
