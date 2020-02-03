@@ -2,7 +2,8 @@
 {% extends "blog/base.html" %} 
  
 {% block title %}{{ post.title }}{% endblock %}
-{% block content %} 
+
+{% block content %}
   <h1>{{ post.title }}</h1> 
   <p class="date"> 
     Published {{ post.publish }} by {{ post.author }} 
@@ -11,9 +12,23 @@
     <p>
         <a href="{% url "Blog:post_share" post.id %}"> Share this post</a>
     </p>
+
+    <h2 class="similar_posts"> Similar posts
+        {% for post in similar_posts %}
+            <p>
+                <a href="{{ post.get_absolute_url }}">
+                    {{ post.title }}
+                </a>
+            </p>
+        {% empty %}
+            There are no similar post yet
+         {% endfor %}
+    </h2>
+
     {% with comments.count as total_comments %}
         <h2>{{ total_comments }} comment{{ total_comments|pluralize }}</h2>
     {% endwith %}
+
     {% for comment in comments %}
         <div class="comment">
             <p class="info">
@@ -25,6 +40,9 @@
         {% empty %}
             <p>There are no comments yet.</p>
     {% endfor %}
+
+
+
     {% if new_comment %}
         <h2>Your comment has been added.</h2>
     {% else %}
@@ -35,4 +53,6 @@
             <p><input type="submit" value="Add comment"></p>
         </form>
     {% endif %}
+
+
 {% endblock %}
